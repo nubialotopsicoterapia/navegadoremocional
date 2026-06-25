@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navegador emocional — lotopsicoterapia</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F7F4EE;color:#2C2C2A;min-height:100vh}
+.app{max-width:480px;margin:0 auto;padding:1.5rem 1.25rem 4rem}
+.screen{display:none;animation:fadeSlide 0.25s ease forwards}
+.screen.active{display:block}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.brand{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#888780;margin-bottom:2rem;padding-top:0.5rem}
+.brand-dot{color:#639922}
+.intro-body{font-size:14px;color:#5F5E5A;line-height:1.8;margin-bottom:1rem}
+.intro-question{font-size:19px;font-weight:600;color:#2C2C2A;margin:1.75rem 0 1rem}
+.state-btn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:0.5px solid #D3D1C7;border-radius:14px;padding:0.9rem 1rem;margin-bottom:0.6rem;cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.state-btn:hover{background:#F1EFE8;border-color:#888780}
+.state-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.state-btn-text{flex:1}
+.state-btn-title{font-size:13px;font-weight:600;color:#2C2C2A;display:block;margin-bottom:2px}
+.state-btn-sub{font-size:11px;color:#888780;display:block}
+.chevron-right{font-size:13px;color:#B4B2A9}
+.crisis-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#EAF3DE;border:0.5px solid #97C459;border-radius:14px;padding:0.9rem;margin-top:1.5rem;cursor:pointer;font-size:13px;font-weight:600;color:#27500A;transition:all 0.15s;font-family:inherit}
+.crisis-btn:hover{background:#C0DD97}
+.back-btn{font-size:13px;color:#888780;cursor:pointer;margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:5px;border:none;background:none;padding:0;font-family:inherit}
+.back-btn:hover{color:#2C2C2A}
+.state-header{border-radius:14px;padding:1.25rem;margin-bottom:1.25rem}
+.state-eyebrow{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;opacity:0.7;margin-bottom:0.5rem}
+.state-title{font-size:22px;font-weight:700;line-height:1.3;margin-bottom:0.3rem}
+.state-sub{font-size:12px;opacity:0.65}
+.validation{font-size:15px;line-height:1.75;margin-bottom:1rem;padding:0.9rem 1rem;border-radius:10px;font-style:italic}
+.psych{font-size:14px;color:#5F5E5A;line-height:1.75;margin-bottom:1.25rem}
+.actions-label{font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#B4B2A9;margin-bottom:0.65rem}
+.accordion-item{border:0.5px solid #D3D1C7;border-radius:10px;margin-bottom:0.5rem;overflow:hidden}
+.accordion-trigger{width:100%;text-align:left;background:#fff;border:none;padding:0.85rem 1rem;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-family:inherit;transition:background 0.15s}
+.accordion-trigger:hover{background:#F7F4EE}
+.accordion-trigger-text{font-size:13px;font-weight:600;color:#2C2C2A;line-height:1.5;flex:1}
+.accordion-chevron{font-size:15px;color:#B4B2A9;transition:transform 0.2s;flex-shrink:0;margin-top:1px}
+.accordion-trigger.open .accordion-chevron{transform:rotate(180deg)}
+.accordion-body{display:none;padding:0 1rem 0.9rem;background:#fff}
+.accordion-body.open{display:block;animation:fadeSlide 0.18s ease}
+.accordion-body p{font-size:13px;color:#5F5E5A;line-height:1.75}
+.action-link{color:#185FA5;text-decoration:underline;cursor:pointer}
+.closing{font-size:14px;color:#5F5E5A;line-height:1.75;border-top:0.5px solid #D3D1C7;padding-top:1.1rem;margin-top:0.75rem;font-style:italic}
+.divider{height:0.5px;background:#D3D1C7;margin:1.25rem 0}
+.nav-bottom{display:flex;gap:0.65rem;margin-top:1.5rem}
+.nav-bottom button{flex:1;padding:0.7rem;border:0.5px solid #D3D1C7;border-radius:10px;background:#fff;font-size:12px;cursor:pointer;color:#5F5E5A;font-family:inherit;transition:all 0.15s}
+.nav-bottom button:hover{background:#F1EFE8;color:#2C2C2A}
+.crisis-header{background:#EAF3DE;border-radius:14px;padding:1.1rem;margin-bottom:1.25rem}
+.crisis-header-title{font-size:20px;font-weight:700;color:#173404;margin-bottom:0.3rem}
+.crisis-header-sub{font-size:13px;color:#3B6D11;line-height:1.65}
+.crisis-section{background:#fff;border-radius:14px;border:0.5px solid #D3D1C7;padding:1.1rem;margin-bottom:0.85rem}
+.crisis-section-title{font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:0.75rem;display:flex;align-items:center;gap:8px}
+.crisis-icon{font-size:16px}
+.breath-container{display:flex;flex-direction:column;align-items:center;padding:1.25rem 0 0.75rem}
+.breath-circle{width:120px;height:120px;border-radius:50%;border:2px solid #97C459;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;background:#EAF3DE}
+.breath-label{font-size:14px;font-weight:600;color:#2C2C2A;text-align:center;margin-bottom:0.3rem;min-height:22px}
+.breath-count{font-size:28px;font-weight:700;color:#27500A}
+.breath-note{font-size:11px;color:#888780;text-align:center;margin-bottom:0.9rem;line-height:1.6;max-width:240px}
+.breath-start{padding:0.55rem 1.5rem;border:0.5px solid #D3D1C7;border-radius:10px;background:#F7F4EE;font-size:12px;cursor:pointer;color:#2C2C2A;font-family:inherit;transition:all 0.15s}
+.breath-start:hover{background:#EAF3DE;border-color:#97C459;color:#27500A}
+.sigh-step{font-size:13px;color:#5F5E5A;line-height:1.7;margin-bottom:0.5rem;display:flex;gap:8px}
+.sigh-num{font-weight:700;color:#2C2C2A;min-width:16px}
+.plan-item{display:flex;gap:8px;margin-bottom:0.8rem}
+.plan-num{font-size:12px;font-weight:700;color:#639922;min-width:16px;margin-top:1px}
+.plan-text{font-size:13px;color:#5F5E5A;line-height:1.7}
+.plan-text strong{font-weight:600;color:#2C2C2A}
+.footer{text-align:center;margin-top:2rem;font-size:11px;color:#B4B2A9}
+.footer a{color:#888780;text-decoration:none}
+.footer a:hover{color:#3B6D11}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HOME -->
+<div id="home" class="screen active">
+  <div class="brand">Navegador emocional <span class="brand-dot">·</span> lotopsicoterapia</div>
+  <p class="intro-body">En momentos de crisis en nuestros países de origen, el dolor de la migración se incrementa. Porque una cosa es estar lejos cuando todo va más o menos bien, y otra muy distinta es estar lejos cuando las personas que amas están atravesando algo difícil.</p>
+  <p class="intro-body">Tener que continuar con tu vida mientras en tu país hay sufrimiento puede doler mucho. Revisar las noticias una y otra vez. Esperar mensajes. Imaginar a las personas que quieres. Querer ayudar y no saber cómo. Sentir que tu vida tiene que seguir mientras la de otras parece haberse detenido.</p>
+  <p class="intro-body">A veces aparece la culpa. O la impotencia. O la rabia, la frustración, la tristeza. A veces todo eso junto. Y tiene sentido.</p>
+  <p class="intro-body">Este espacio nace para acompañarte en medio de todo eso — no para darte respuestas perfectas, sino para ofrecerte un lugar donde aterrizar por unos minutos y recordarte que no tienes que sostenerlo todo en soledad.</p>
+  <p class="intro-question">¿Dónde estás hoy?</p>
+
+  <button class="state-btn" onclick="show('s1')">
+    <div class="state-icon" style="background:#EAF3DE">🔄</div>
+    <div class="state-btn-text"><span class="state-btn-title">No puedo parar de ver las noticias</span><span class="state-btn-sub">Chequeando cada 5 minutos, no puedo dejar el teléfono</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+  <button class="state-btn" onclick="show('s2')">
+    <div class="state-icon" style="background:#FAEEDA">🌙</div>
+    <div class="state-btn-text"><span class="state-btn-title">No puedo dormir / estoy en alerta permanente</span><span class="state-btn-sub">Tu cuerpo está en rojo hace días</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+  <button class="state-btn" onclick="show('s3')">
+    <div class="state-icon" style="background:#FBEAF0">🤍</div>
+    <div class="state-btn-text"><span class="state-btn-title">Me siento culpable de estar "bien" acá</span><span class="state-btn-sub">Mientras ellos sufren</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+  <button class="state-btn" onclick="show('s4')">
+    <div class="state-icon" style="background:#FAECE7">🔥</div>
+    <div class="state-btn-text"><span class="state-btn-title">Estoy furioso/a y no sé qué hacer</span><span class="state-btn-sub">La rabia es lo más fuerte que sientes</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+  <button class="state-btn" onclick="show('s5')">
+    <div class="state-icon" style="background:#E6F1FB">📵</div>
+    <div class="state-btn-text"><span class="state-btn-title">No logro contactar a mi familia</span><span class="state-btn-sub">El silencio es tan jodido como las malas noticias</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+  <button class="state-btn" onclick="show('s6')">
+    <div class="state-icon" style="background:#EEEDFE">🫂</div>
+    <div class="state-btn-text"><span class="state-btn-title">Me siento completamente solo/a en esto</span><span class="state-btn-sub">Nadie aquí entiende, todos siguen con sus vidas</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+  <button class="state-btn" onclick="show('s7')">
+    <div class="state-icon" style="background:#E1F5EE">🤲</div>
+    <div class="state-btn-text"><span class="state-btn-title">Me pidieron ayuda y no puedo darla</span><span class="state-btn-sub">La responsabilidad de ser quien salió adelante</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+  <button class="state-btn" onclick="show('s8')">
+    <div class="state-icon" style="background:#F1EFE8">🫧</div>
+    <div class="state-btn-text"><span class="state-btn-title">Estoy entumecido/a / como si nada pasara</span><span class="state-btn-sub">Todo sigue normal, sientes poco</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+
+  <button class="crisis-btn" onclick="show('crisis')">♡ Mi cuerpo entró en crisis — necesito regularlo ahora</button>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 1 -->
+<div id="s1" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#EAF3DE">
+    <div class="state-eyebrow" style="color:#3B6D11">Estado</div>
+    <div class="state-title" style="color:#173404">No puedo parar de ver las noticias</div>
+    <div class="state-sub" style="color:#3B6D11">Chequeando cada 5 minutos, no puedo dejar el teléfono</div>
+  </div>
+  <div class="validation" style="background:#EAF3DE;color:#27500A">Tu cuerpo intenta estar en dos lugares. Por eso refresca.</div>
+  <p class="psych">Esto se llama hipervigilancia. No es curiosidad, es el sistema nervioso intentando anticipar peligro. Es supervivencia.</p>
+  <div class="actions-label">Acciones que te pueden ayudar</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Establece horarios para informarte</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Estar informado es importante, pero no necesitas todas las noticias de todo el día. Con saber lo esencial es suficiente — establece horarios para enterarte y filtra los medios que revisas.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Pregúntate qué necesitas realmente</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Cuando sientas el impulso de abrir el teléfono: pregúntate qué necesitas realmente en ese momento (¿llamar a alguien?, ¿hacer algo concreto?, ¿simplemente respirar?)</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Pon una barrera física entre tú y el scroll</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Si es muy difícil parar: desactiva notificaciones, saca la app del home, pon una barrera física entre tú y el scroll.</p></div>
+  </div>
+  <p class="closing">Reconoce cuál es tu límite, e intenta comenzar a cuidarlo.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 2 -->
+<div id="s2" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#FAEEDA">
+    <div class="state-eyebrow" style="color:#854F0B">Estado</div>
+    <div class="state-title" style="color:#412402">No puedo dormir / estoy en alerta permanente</div>
+    <div class="state-sub" style="color:#854F0B">Tu cuerpo está en rojo hace días</div>
+  </div>
+  <div class="validation" style="background:#FAEEDA;color:#633806">Estás viviendo en estado de emergencia. El cuerpo lo sabe.</div>
+  <p class="psych">Tu sistema nervioso está en modo supervivencia. Cuando finalmente duermes, tu cuerpo sigue procesando la crisis.</p>
+  <div class="actions-label">Acciones que pueden ayudar al sueño</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Movimiento físico intenso durante el día</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Correr, bailar fuerte, caminar rápido, saltar, boxear. Esto ayuda a reducir la activación del sistema nervioso para que puedas descansar.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Evita pantallas antes de dormir</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Evita pantallas 60-90 minutos antes de dormir. La luz azul mantiene tu cerebro en alerta. En la medida de lo posible, evita quedarte en la cama scrolleando — usa la cama solo para dormir.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Temperatura y rutina nocturna</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Mantén una temperatura baja en la habitación (16-18°C). Crea una rutina antes de dormir y repítela cada noche: ducha caliente, respiración lenta, lectura, música tranquila. Los olores también ayudan — la lavanda tiene evidencia de mejorar la calidad del sueño.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Si no puedes dormir después de 20 minutos</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Levántate de la cama, pero no uses pantallas. Haz algo tranquilo hasta que llegue el sueño.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Si tu mente no para: escribe</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Limita la cafeína después del mediodía. Y si tu mente no para: escribe. Deja que salga del cuerpo.</p></div>
+  </div>
+  <p class="closing">El descanso no es un lujo ahora mismo — es parte de sostenerte.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 3 -->
+<div id="s3" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#FBEAF0">
+    <div class="state-eyebrow" style="color:#993556">Estado</div>
+    <div class="state-title" style="color:#4B1528">Me siento culpable de estar "bien" acá</div>
+    <div class="state-sub" style="color:#993556">Estabilidad, cama, comida, seguridad... mientras ellos sufren</div>
+  </div>
+  <div class="validation" style="background:#FBEAF0;color:#72243E">La culpa de estar mejor es una de las emociones más difíciles de la migración. Y tiene mucho sentido.</div>
+  <p class="psych">No estás roto/a por sentirte así. Es una contradicción real y dolorosa — y es válido que duela.</p>
+  <div class="actions-label">Acciones que te pueden ayudar</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Observa qué hace la culpa contigo</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>A veces la culpa te mueve — te impulsa a actuar, a conectar, a hacer algo concreto. Otras veces te paraliza — te hunde sin llevarte a ningún lado. Las dos son válidas, pero no las dos te ayudan igual.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Si la culpa te paraliza</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Pregúntate qué estás intentando sostener con ese peso. No tienes que cargarlo solo/a.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Si la culpa te mueve</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Canalízala en algo concreto — donar, informar, acompañar a alguien, organizarte con otros.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Permite que las dos cosas sean verdad</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Permite que estés bien y que también te duela todo. Las dos cosas pueden ser verdad al mismo tiempo.</p></div>
+  </div>
+  <p class="closing">Puedes estar lejos y amar profundamente. No son contradictorios.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 4 -->
+<div id="s4" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#FAECE7">
+    <div class="state-eyebrow" style="color:#993C1D">Estado</div>
+    <div class="state-title" style="color:#4A1B0C">Estoy furioso/a y no sé qué hacer con esto</div>
+    <div class="state-sub" style="color:#993C1D">La rabia es lo más fuerte que sientes</div>
+  </div>
+  <div class="validation" style="background:#FAECE7;color:#712B13">La rabia es la respuesta correcta. Significa que no abandonaste.</div>
+  <p class="psych">La rabia aparece cuando algo injusto está pasando y tú lo reconoces. Es política — dice que ves lo que está ocurriendo, que te importa. Es normal que los sistemas fallen, que los gobiernos decepcionen. La rabia que sientes es una señal de que sigues conectado/a a lo que amas.</p>
+  <div class="actions-label">Acciones que te pueden ayudar</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Escribe sin filtro</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>No para publicar, no para otros — solo para ti. Toda la rabia, la injusticia, lo que te parece inaceptable. Sin estructura, sin orden. Deja que salga. Este ejercicio saca el peso del cuerpo y le da forma a algo que a veces se queda atrapado adentro.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Movilízate y usa tu voz</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Denuncia, organiza, comparte información, une a personas. Si tienes redes, un grupo, una comunidad — comparte lo que ves, lo que sientes, lo que sabes. Nombrar la injusticia desde afuera también es una forma de estar presente.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Movimiento catártico</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>No algo relajante, sino intenso. Correr, bailar fuerte, golpear una almohada, gritar si puedes. La rabia es una emoción física — necesita salir del cuerpo, no solo de la cabeza.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Conecta con otros que también están furiosos</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>La rabia compartida es menos solitaria. Busca personas de tu comunidad que estén sintiendo lo mismo — no para quedarse en la rabia, sino para transformarla juntos.</p></div>
+  </div>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 5 -->
+<div id="s5" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#E6F1FB">
+    <div class="state-eyebrow" style="color:#185FA5">Estado</div>
+    <div class="state-title" style="color:#042C53">No logro contactar a mi familia / no sé qué pasó</div>
+    <div class="state-sub" style="color:#185FA5">El silencio es tan jodido como las malas noticias</div>
+  </div>
+  <div class="validation" style="background:#E6F1FB;color:#0C447C">La incertidumbre duele diferente. Y a veces es más difícil que una mala noticia.</div>
+  <p class="psych">Tu cerebro está intentando completar información que no tiene. La incertidumbre activa el sistema de supervivencia más que una mala noticia clara — porque al menos con una mala noticia sabes a qué atenerte. El silencio no te da nada concreto a qué responder, y eso es agotador.</p>
+  <div class="actions-label">Acciones que te pueden ayudar</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Recurso para Venezuela: personas desaparecidas</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Si estás buscando a alguien en Venezuela: existe un recurso para reportar personas desaparecidas o verificar información — <a class="action-link" href="https://desaparecidosterremotovenezuela.com" target="_blank">desaparecidosterremotovenezuela.com</a></p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Investiga todos los canales posibles</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Revisa redes sociales, pregunta a amigos en común, busca grupos de migrantes o comunidades en línea que estén compartiendo información. A veces la información llega por donde menos esperas.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Si logras contactar</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Tómate un momento para simplemente estar presente en ese alivio. Después, si tiene sentido, acuerden formas de mantenerse en contacto en caso de que vuelva a fallar la comunicación.</p></div>
+  </div>
+  <div class="divider"></div>
+  <div class="actions-label">Mientras no logres contactar</div>
+  <p class="psych">Esto es de lo más difícil que existe en la migración. No saber. Esperar. Revisar el teléfono una y otra vez sin recibir respuesta. Es un dolor muy particular — no puedes llorar algo concreto, solo puedes esperar. Y eso agota de una manera difícil de explicar.</p>
+  <p class="psych">Permite que el miedo esté ahí. No tienes que calmarte a la fuerza. Intenta no quedarte completamente solo/a en esa espera — busca a alguien con quien estar, aunque no hablen del tema.</p>
+  <p class="closing">Reconoce que estás haciendo todo lo que puedes. Y eso es suficiente.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 6 -->
+<div id="s6" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#EEEDFE">
+    <div class="state-eyebrow" style="color:#534AB7">Estado</div>
+    <div class="state-title" style="color:#26215C">Me siento completamente solo/a en esto</div>
+    <div class="state-sub" style="color:#534AB7">Nadie aquí entiende, todos siguen con sus vidas</div>
+  </div>
+  <div class="validation" style="background:#EEEDFE;color:#3C3489">Es verdad. Mucha gente a tu alrededor puede no entenderlo — y eso es algo de ellos, no tuyo. Pero hay muchas otras personas que sí están sintiéndolo.</div>
+  <p class="psych">La soledad de la migración se amplifica en crisis. Porque además de estar lejos físicamente, estás emocionalmente en otro lugar mientras quienes te rodean siguen con su día normal.</p>
+  <div class="actions-label">Acciones que te pueden ayudar</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Busca personas que estén viviendo lo mismo</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Otros migrantes de tu país, grupos en redes sociales, comunidades en línea creadas alrededor de esta crisis. No tienes que explicar desde cero lo que sientes — ellos ya lo saben.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Conecta con alguien de tu país donde estás</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Por WhatsApp, tomando un café, lo que sea. A veces no hace falta hablar mucho. Solo estar con alguien que entiende sin que tengas que traducir el dolor.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Si no encuentras ese espacio: créalo</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Un mensaje a alguien de tu comunidad, un grupo, una conversación. Muchas personas están esperando que alguien dé el primer paso. Busca hashtags, grupos, cuentas de venezolanos en el exterior — el dolor compartido conecta.</p></div>
+  </div>
+  <p class="closing">No tienes que sostener esto solo/a. Busca compañía precisamente ahora.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 7 -->
+<div id="s7" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#E1F5EE">
+    <div class="state-eyebrow" style="color:#0F6E56">Estado</div>
+    <div class="state-title" style="color:#04342C">Me pidieron ayuda y no puedo darla</div>
+    <div class="state-sub" style="color:#0F6E56">La responsabilidad de ser quien salió adelante</div>
+  </div>
+  <div class="validation" style="background:#E1F5EE;color:#085041">Estar lejos no significa tener más dinero, ni poder dar todo lo que te piden. Y cuando no puedes darla — o no puedes dar lo que esperan — eso duele. Aunque no sea tu culpa.</div>
+  <p class="psych">A veces la migración carga con una expectativa muy pesada: la de que quien está afuera puede resolver lo que quienes están adentro no pueden. Y cuando no puedes cumplirla, duele. Aunque no sea tu obligación cargarla.</p>
+  <div class="actions-label">Acciones que te pueden ayudar</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Reconoce qué puedes dar realmente</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>No lo que quisieras poder dar, sino lo que realmente puedes ahora mismo. Eso también es un acto de cuidado.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Ayudar no es solo dinero</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Compartir información, amplificar voces, acompañar emocionalmente, movilizar a otros, estar presente para alguien que lo necesita — todo eso cuenta. Y a veces cuenta más de lo que creemos.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Si la conversación se pone difícil</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Es válido que duela. No tienes que tener una respuesta perfecta. Puedes decir "esto es lo que puedo ahora" y sostener eso con calma, aunque sea incómodo.</p></div>
+  </div>
+  <p class="closing">Es válido que duela. Y es válido que tengas límites.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 8 -->
+<div id="s8" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#F1EFE8">
+    <div class="state-eyebrow" style="color:#5F5E5A">Estado</div>
+    <div class="state-title" style="color:#2C2C2A">Estoy entumecido/a / como si nada pasara</div>
+    <div class="state-sub" style="color:#5F5E5A">Todo sigue normal, sientes poco, estás raro/a</div>
+  </div>
+  <div class="validation" style="background:#F1EFE8;color:#444441">A veces el cuerpo se protege cuando el dolor es muy grande. No estás roto/a.</div>
+  <p class="psych">La disociación es una protección inteligente. Tu sistema detectó que el dolor era demasiado y bajó el volumen. No es debilidad — es supervivencia.</p>
+  <div class="actions-label">Acciones que te pueden ayudar</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">No te fuerces a sentir más</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Es contraproducente y agotador. El cuerpo va a su ritmo, y ese ritmo merece respeto.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Trae anclaje lentamente</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Anclarse significa volver al momento presente — salir de la cabeza y entrar al cuerpo. Puedes hacerlo con actividades simples y concretas: preparar algo de comer, salir a caminar, escuchar música que reconoces. Solo algo que te conecte con el aquí y el ahora.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Vuelve al cuerpo con sensaciones físicas</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Camina descalzo/a sobre el piso o el pasto, toma agua fría, envuélvete en una manta, toca algo con textura. El cuerpo a veces necesita recordar que está vivo y presente.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Mantén contacto con gente real</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Una llamada, un encuentro, estar en el mismo espacio que alguien. No tienes que hablar de lo que pasa — solo estar acompañado/a ayuda.</p></div>
+  </div>
+  <p class="closing">Lo que sientes — o lo que no sientes — tiene sentido. Confía en que poco a poco va a volver.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- CRISIS -->
+<div id="crisis" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver al inicio</button>
+  <div class="crisis-header">
+    <div class="crisis-header-title">Regula tu sistema nervioso</div>
+    <div class="crisis-header-sub">Si tu cuerpo entró en crisis — pánico, angustia intensa, sensación de que no puedes más — estas técnicas pueden ayudarte a recuperar el piso. No resuelven lo que está pasando afuera, pero sí le dan al cuerpo una salida.</div>
+  </div>
+
+  <div class="crisis-section">
+    <div class="crisis-section-title"><span class="crisis-icon">🌬️</span> El suspiro fisiológico — para pánico intenso</div>
+    <p style="font-size:13px;color:#5F5E5A;margin-bottom:1rem;line-height:1.7">La técnica más rápida para bajar el sistema nervioso en crisis aguda. Respaldada por investigación de Stanford.</p>
+    <div class="sigh-step"><span class="sigh-num">1.</span><span>Inhala profundo por la nariz</span></div>
+    <div class="sigh-step"><span class="sigh-num">2.</span><span>Cuando creas que no puedes inhalar más, mete un segundo sorbo de aire corto por la nariz</span></div>
+    <div class="sigh-step"><span class="sigh-num">3.</span><span>Exhala todo, largo y lento, por la boca</span></div>
+    <p style="margin-top:0.75rem;font-size:12px;color:#888780">Repite 2 o 3 veces. El efecto es casi inmediato.</p>
+  </div>
+
+  <div class="crisis-section">
+    <div class="crisis-section-title"><span class="crisis-icon">⭕</span> Inhala 4 — Exhala 6</div>
+    <div class="breath-container">
+      <div class="breath-circle" id="breathCircle">
+        <span class="breath-count" id="breathCount">—</span>
+      </div>
+      <div class="breath-label" id="breathLabel">Cuando estés listo/a, empieza</div>
+      <p class="breath-note">La exhalación más larga activa el nervio vago y le dice al cuerpo que puede bajar la guardia.</p>
+      <button class="breath-start" id="breathBtn" onclick="toggleBreath()">Comenzar</button>
+    </div>
+  </div>
+
+  <div class="crisis-section">
+    <div class="crisis-section-title"><span class="crisis-icon">💧</span> Agua fría</div>
+    <p style="font-size:13px;color:#5F5E5A;line-height:1.7">El agua fría en la cara activa el reflejo de buceo — desacelera el corazón y activa el sistema parasimpático. Salpica tu frente y mejillas, o sostén hielo en las manos. Unos segundos son suficientes.</p>
+  </div>
+
+  <div class="crisis-section">
+    <div class="crisis-section-title"><span class="crisis-icon">🏃</span> Movimiento físico</div>
+    <p style="font-size:13px;color:#5F5E5A;line-height:1.7">Tu cuerpo produjo adrenalina para prepararte. El movimiento es la forma más directa de procesarla. Camina rápido, salta, sacude los brazos. Dos o tres minutos pueden cambiar significativamente cómo te sientes.</p>
+  </div>
+
+  <div class="crisis-section">
+    <div class="crisis-section-title"><span class="crisis-icon">🤗</span> Contacto físico</div>
+    <p style="font-size:13px;color:#5F5E5A;line-height:1.7">El contacto físico libera oxitocina y te trae de vuelta al cuerpo. Si tienes a alguien cerca: pide un abrazo. Si estás solo/a: abrázate, envuélvete en una manta, toca a una mascota. El cuerpo responde al contacto independientemente de su fuente.</p>
+  </div>
+
+  <div class="crisis-section">
+    <div class="crisis-section-title"><span class="crisis-icon">👁️</span> Vuelve al momento presente</div>
+    <div class="plan-item"><span class="plan-num">1.</span><span class="plan-text"><strong>Detente.</strong> No intentes resolver nada ahora mismo.</span></div>
+    <div class="plan-item"><span class="plan-num">2.</span><span class="plan-text"><strong>Toca algo.</strong> Siente la textura y la temperatura.</span></div>
+    <div class="plan-item"><span class="plan-num">3.</span><span class="plan-text"><strong>Mira alrededor</strong> lentamente. Busca un objeto y obsérvalo.</span></div>
+    <div class="plan-item"><span class="plan-num">4.</span><span class="plan-text"><strong>Escucha.</strong> ¿Qué sonidos hay a tu alrededor ahora?</span></div>
+    <div class="plan-item"><span class="plan-num">5.</span><span class="plan-text"><strong>Respira.</strong> Sin forzar.</span></div>
+    <div class="plan-item"><span class="plan-num">6.</span><span class="plan-text"><strong>Nómbrate.</strong> Di tu nombre en voz alta. Dónde estás. Qué día es hoy.</span></div>
+  </div>
+
+  <div class="crisis-section">
+    <div class="crisis-section-title"><span class="crisis-icon">✓</span> Cuando pase el momento más intenso</div>
+    <div class="plan-item"><span class="plan-num">1.</span><span class="plan-text">Identifica qué necesitabas: ¿contacto?, ¿información?, ¿acción?, ¿compañía?</span></div>
+    <div class="plan-item"><span class="plan-num">2.</span><span class="plan-text">Haz una sola cosa concreta.</span></div>
+    <div class="plan-item"><span class="plan-num">3.</span><span class="plan-text">Después: come algo, toma agua, muévete, duerme si puedes.</span></div>
+    <div class="plan-item"><span class="plan-num">4.</span><span class="plan-text">Si vuelve: ya pasaste por esto antes. Tienes recursos.</span></div>
+  </div>
+
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');s.style.display='none'});
+  var el=document.getElementById(id);
+  el.style.display='block';
+  void el.offsetWidth;
+  el.classList.add('active');
+  window.scrollTo(0,0);
+  if(id!=='crisis')stopBreath();
+}
+
+function toggleAccordion(btn){
+  var body=btn.nextElementSibling;
+  var isOpen=body.classList.contains('open');
+  btn.classList.toggle('open',!isOpen);
+  body.classList.toggle('open',!isOpen);
+}
+
+var breathRunning=false,breathTimer=null,breathInterval=null,breathPhase=0,breathSec=0;
+var phases=[{label:'Inhala',duration:4,scale:1.3},{label:'Exhala',duration:6,scale:1}];
+
+function toggleBreath(){breathRunning?stopBreath():startBreath()}
+
+function startBreath(){
+  breathRunning=true;
+  document.getElementById('breathBtn').textContent='Detener';
+  breathPhase=0;runBreathPhase();
+}
+
+function stopBreath(){
+  breathRunning=false;
+  clearTimeout(breathTimer);clearInterval(breathInterval);
+  document.getElementById('breathBtn').textContent='Comenzar';
+  document.getElementById('breathLabel').textContent='Cuando estés listo/a, empieza';
+  document.getElementById('breathCount').textContent='—';
+  document.getElementById('breathCircle').style.transform='scale(1)';
+}
+
+function runBreathPhase(){
+  if(!breathRunning)return;
+  var p=phases[breathPhase];
+  breathSec=p.duration;
+  document.getElementById('breathLabel').textContent=p.label;
+  document.getElementById('breathCount').textContent=breathSec;
+  var startScale=breathPhase===0?1:1.3,endScale=p.scale,totalMs=p.duration*1000,startTime=Date.now();
+  clearInterval(breathInterval);
+  breathInterval=setInterval(function(){
+    if(!breathRunning){clearInterval(breathInterval);return}
+    var elapsed=Date.now()-startTime,progress=Math.min(elapsed/totalMs,1);
+    document.getElementById('breathCircle').style.transform='scale('+(startScale+(endScale-startScale)*progress).toFixed(3)+')';
+    var sl=Math.ceil((totalMs-elapsed)/1000);
+    if(sl!==breathSec){breathSec=sl;if(sl>0)document.getElementById('breathCount').textContent=sl}
+    if(progress>=1){clearInterval(breathInterval);breathPhase=(breathPhase+1)%phases.length;breathTimer=setTimeout(runBreathPhase,200)}
+  },50);
+}
+</script>
+</body>
+</html>
