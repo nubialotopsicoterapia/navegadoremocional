@@ -82,6 +82,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <p class="intro-body">Tener que continuar con tu vida mientras en tu país hay sufrimiento puede doler mucho. Revisar las noticias una y otra vez. Esperar mensajes. Imaginar a las personas que quieres. Querer ayudar y no saber cómo. Sentir que tu vida tiene que seguir mientras la de otras parece haberse detenido.</p>
   <p class="intro-body">A veces aparece la culpa. O la impotencia. O la rabia, la frustración, la tristeza. A veces todo eso junto. Y tiene sentido.</p>
   <p class="intro-body">Este espacio nace para acompañarte en medio de todo eso — no para darte respuestas perfectas, sino para ofrecerte un lugar donde aterrizar por unos minutos y recordarte que no tienes que sostenerlo todo en soledad.</p>
+  <button class="state-btn" onclick="show('escaneo')" style="background:#F0EBF8;border-color:#C9B8E8;margin-bottom:1.25rem">
+    <div class="state-icon" style="background:#E4D9F5">🫁</div>
+    <div class="state-btn-text"><span class="state-btn-title" style="color:#3D1F6E">Antes de continuar: reconoce lo que estás sintiendo</span><span class="state-btn-sub" style="color:#7B5BB6">Un momento para nombrar y ubicar lo que hay en tu cuerpo</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+
   <p class="intro-question">¿Dónde estás hoy?</p>
 
   <button class="state-btn" onclick="show('s1')">
@@ -489,6 +495,62 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="nav-bottom">
     <button onclick="show('home')">← Inicio</button>
     <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESCANEO CORPORAL -->
+<div id="escaneo" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#F0EBF8">
+    <div class="state-eyebrow" style="color:#7B5BB6">Paso previo</div>
+    <div class="state-title" style="color:#3D1F6E">Reconoce lo que estás sintiendo</div>
+    <div class="state-sub" style="color:#7B5BB6">Un momento para nombrar y ubicar lo que hay en tu cuerpo</div>
+  </div>
+  <p class="psych">Antes de explorar los estados, tómate un momento. Solo unos minutos. Nombrar lo que sentimos es el primer paso para poder transitarlo.</p>
+  <div class="actions-label">Escaneo corporal — paso a paso</div>
+  <p class="psych" style="margin-bottom:1.25rem">Busca una posición cómoda. Puedes cerrar los ojos si quieres.</p>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">1. Cabeza y mandíbula</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Lleva la atención a tu cabeza. ¿Hay tensión en la frente, en la mandíbula? ¿Tu mente está acelerada o en blanco?</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">2. Cuello y hombros</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>¿Están tensos? ¿Sientes un peso ahí?</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">3. Pecho</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>¿Hay opresión? ¿Tu respiración es corta o profunda?</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">4. Estómago</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>¿Hay un nudo? ¿Vacío? ¿Mariposas?</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">5. Manos y piernas</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>¿Están inquietas? ¿Pesadas? ¿Frías?</p></div>
+  </div>
+  <p class="psych" style="margin-top:1.25rem">Ahora pregúntate: <strong>¿qué emoción está detrás de lo que sientes en el cuerpo?</strong></p>
+  <p class="psych">Puede ser rabia. Miedo. Culpa. Tristeza. Frustración. Angustia. Entumecimiento. Varias a la vez. No hay respuesta correcta.</p>
+  <p class="closing">Nómbrala — aunque sea en voz baja, aunque no estés seguro/a. Ya puedes continuar.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('home')" style="background:#F0EBF8;border-color:#C9B8E8;color:#3D1F6E">Ver los estados →</button>
   </div>
   <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
 </div>
