@@ -125,6 +125,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <span class="chevron-right">›</span>
   </button>
 
+  <button class="state-btn" onclick="show('s9')">
+    <div class="state-icon" style="background:#FEF3E2">🙌</div>
+    <div class="state-btn-text"><span class="state-btn-title">Quiero hacer algo pero no sé por dónde empezar</span><span class="state-btn-sub">Necesito actuar, pero todo se siente abrumador</span></div>
+    <span class="chevron-right">›</span>
+  </button>
+
   <button class="crisis-btn" onclick="show('crisis')">♡ Mi cuerpo entró en crisis — necesito regularlo ahora</button>
   <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
 </div>
@@ -480,6 +486,53 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div class="accordion-body"><p>Una llamada, un encuentro, estar en el mismo espacio que alguien. No tienes que hablar de lo que pasa — solo estar acompañado/a ayuda.</p></div>
   </div>
   <p class="closing">Lo que sientes — o lo que no sientes — tiene sentido. Confía en que poco a poco va a volver.</p>
+  <div class="nav-bottom">
+    <button onclick="show('home')">← Inicio</button>
+    <button onclick="show('crisis')">Necesito regularme ahora</button>
+  </div>
+  <div class="footer"><a href="https://instagram.com/lotopsicoterapia" target="_blank">@lotopsicoterapia</a></div>
+</div>
+
+<!-- ESTADO 9 -->
+<div id="s9" class="screen">
+  <button class="back-btn" onclick="show('home')">← Volver</button>
+  <div class="state-header" style="background:#FEF3E2">
+    <div class="state-eyebrow" style="color:#9A5B0A">Estado</div>
+    <div class="state-title" style="color:#4A2800">Quiero hacer algo pero no sé por dónde empezar</div>
+    <div class="state-sub" style="color:#9A5B0A">Necesito actuar, pero todo se siente abrumador</div>
+  </div>
+  <div class="validation" style="background:#FEF3E2;color:#7A4508">Querer hacer algo es una señal de que sigues conectado/a. No tienes que hacerlo todo — una acción concreta ya es suficiente.</div>
+  <p class="psych">Revisa las opciones que tienes y elige una. Solo una.</p>
+  <div class="actions-label">Acciones que te pueden ayudar</div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Donar</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Busca organizaciones verificadas que estén operando en la zona afectada. Antes de transferir, confirma que la cuenta o plataforma sea legítima — en momentos de crisis aparecen estafas. Una donación pequeña a un canal confiable vale más que una grande a uno dudoso.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Compartir información — y verificarla primero</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Antes de compartir cualquier noticia, verifica que sea real. Pregúntate: ¿de dónde viene esta información?, ¿quién la publicó primero?, ¿hay otras fuentes que lo confirmen? La desinformación en crisis causa daño real. Compartir información verificada es un acto de cuidado hacia tu comunidad.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Estar para otras personas</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>A veces lo más poderoso que puedes hacer es llamar a alguien. Preguntar cómo está. Escuchar. No tienes que tener respuestas — tu presencia ya es suficiente.</p></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="accordion-trigger-text">Retomar tu vida y cuidarte</span>
+      <span class="accordion-chevron">⌄</span>
+    </button>
+    <div class="accordion-body"><p>Seguir con tu rutina no es traición — es sostenibilidad. No puedes dar desde el vacío. Comer, dormir, moverte, hacer algo que te guste: todo eso te mantiene en pie para seguir presente a largo plazo. Cuidarte es también una forma de estar.</p></div>
+  </div>
+  <p class="closing">Elige una acción. Solo una. Y después de hacerla, descansa.</p>
   <div class="nav-bottom">
     <button onclick="show('home')">← Inicio</button>
     <button onclick="show('crisis')">Necesito regularme ahora</button>
